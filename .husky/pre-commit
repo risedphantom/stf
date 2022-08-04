@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+user_email=$(git config user.email)
+
+if ! $(echo "$user_email" | grep -q "@t1-consulting.ru"); then
+	echo "THOU SHALL COMMIT WITH @t1-consulting EMAIL"
+	echo "You email is set to $user_email"
+	echo "You can fix this with following command:"
+    echo "    git config --global user.email <your_name>@t1-consulting.ru"
+	exit 1
+fi
+
+npx lint-staged
